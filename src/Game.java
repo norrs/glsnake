@@ -1,0 +1,51 @@
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
+
+
+/**
+ * @author Roy Sindre Norangshol <roy.sindre at norangshol dot no>
+ *         Date: 23.06.11
+ *         Time: 23:49
+ */
+public abstract class Game implements ApplicationListener {
+    Screen screen;
+
+    public void setScreen(Screen helpScreen2) {
+        screen.pause();
+        screen.dispose();
+        screen = helpScreen2;
+    }
+
+    public abstract Screen getStartScreen();
+
+    @Override
+    public void create() {
+        screen = getStartScreen();
+    }
+
+    @Override
+    public void resume() {
+        screen.resume();
+    }
+
+    @Override
+    public void render() {
+        screen.update(Gdx.graphics.getDeltaTime());
+        screen.present(Gdx.graphics.getDeltaTime());
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+        screen.pause();
+    }
+
+    @Override
+    public void dispose() {
+        screen.dispose();
+    }
+}
