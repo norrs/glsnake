@@ -1,4 +1,6 @@
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
@@ -74,10 +76,57 @@ public class GameScreen extends Screen {
     }
 
 
-
     @Override
     public void present(float deltaTime) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        GLCommon gl = Gdx.gl;
+        gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        gl.glEnable(GL10.GL_TEXTURE_2D);
+
+        renderer.render();
+
+        guiCam.update();
+        batcher.setProjectionMatrix(guiCam.combined);
+        batcher.enableBlending();
+        batcher.begin();
+        switch (state) {
+            case READY:
+                presentReady();
+                break;
+            case RUNNING:
+                presentRunning();
+                break;
+            case PAUSED:
+                presentPaused();
+                break;
+            case LEVEL_END:
+                presentLevelEnd();
+                break;
+            case GAME_OVER:
+                presentGameOver();
+                break;
+        }
+        batcher.end();
+    }
+
+    private void presentGameOver() {
+
+
+    }
+
+    private void presentLevelEnd() {
+        //To change body of created methods use File | Settings | File Templates.
+    }
+
+    private void presentPaused() {
+        //To change body of created methods use File | Settings | File Templates.
+    }
+
+    private void presentRunning() {
+        //To change body of created methods use File | Settings | File Templates.
+    }
+
+    private void presentReady() {
+        //To change body of created methods use File | Settings | File Templates.
     }
 
     @Override
@@ -97,15 +146,14 @@ public class GameScreen extends Screen {
 
     private void updateReady() {
         if (Gdx.input.justTouched())
-        state = GameState.RUNNING;
+            state = GameState.RUNNING;
     }
+
     private void updateRunning(float deltaTime) {
         if (Gdx.input.justTouched()) {
             guiCam.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
             log.log(Level.INFO, String.format("Current touchPoint %s", touchPoint.toString()));
         }
-
-
 
 
     }

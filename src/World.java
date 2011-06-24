@@ -13,7 +13,7 @@ public class World {
     public final Snake snake;
 
     public World(WorldListener worldListener) {
-        snake = new Snake();
+        snake = new Snake(1,1);
         this.worldListener = worldListener;
     }
 
