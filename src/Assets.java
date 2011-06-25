@@ -16,6 +16,7 @@ public class Assets {
     public static TextureRegion backgroundRegion;
 
     public static Texture snake;
+    public static TextureRegion snakeRegion;
 
 
     public static Texture loadTexture(String file) {
@@ -25,6 +26,8 @@ public class Assets {
     public static void load() {
         background = loadTexture("data/background.png");
         backgroundRegion = new TextureRegion(background, 0,0, 320, 480);
+        snake = loadTexture("data/snake.png");
+        snakeRegion = new TextureRegion(snake, 0,0, 16,16);
 
 
     }

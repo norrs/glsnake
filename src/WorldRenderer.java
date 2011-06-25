@@ -22,19 +22,34 @@ public class WorldRenderer {
         this.camera = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
         this.camera.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
         this.camera.update();
-
     }
 
     public void render() {
+        batch.setProjectionMatrix(camera.combined);
         renderBackground();
+        renderObjects();
 
+
+    }
+
+    private void renderObjects() {
+        batch.enableBlending();
+        batch.begin();
+        renderSnake();
+        batch.end();
+    }
+
+    private void renderSnake() {
+
+
+        batch.draw(Assets.snakeRegion, world.snake.position.x - Snake.SNAKE_WIDTH / 2, world.snake.position.y - Snake.SNAKE_HEIGHT / 2, Snake.SNAKE_WIDTH, Snake.SNAKE_HEIGHT);
 
     }
 
     private void renderBackground() {
         batch.disableBlending();
         batch.begin();
-        batch.draw(Assets.backgroundRegion, camera.position.x - FRUSTUM_WIDTH/2, camera.position.y-FRUSTUM_HEIGHT/2, FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
+        batch.draw(Assets.backgroundRegion, camera.position.x - FRUSTUM_WIDTH / 2, camera.position.y - FRUSTUM_HEIGHT / 2, FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
         batch.end();
 
     }

@@ -151,9 +151,16 @@ public class GameScreen extends Screen {
 
     private void updateRunning(float deltaTime) {
         if (Gdx.input.justTouched()) {
-            guiCam.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+
+            // Voodoo : unprojects from screen coordinates to opengl coorines to physics coordinates :O
+            // Is thise goodie?
+            guiCam.unproject(touchPoint.set(Gdx.input.getX(), Gdx.graphics.getHeight()-Gdx.input.getY(), 0));
+            renderer.camera.unproject(touchPoint);
+
+            log.log(Level.INFO, String.format("gfx coords %s  %s" , Gdx.input.getX(), Gdx.input.getY()));
             log.log(Level.INFO, String.format("Current touchPoint %s", touchPoint.toString()));
         }
+        world.update(deltaTime, touchPoint);
 
 
     }
